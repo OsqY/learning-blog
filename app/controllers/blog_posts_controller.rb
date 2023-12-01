@@ -39,7 +39,7 @@ class BlogPostsController < ApplicationController
     redirect_to root_path
   end
   def blog_post_params
-    params.require(:blogpost).permit(:title, :body, :published_at)
+    params.require(:blogpost).permit(:title, :content, :published_at)
   end
 
   def set_blog_post
