@@ -16,6 +16,7 @@ class BlogPostsController < ApplicationController
   end
 
   def show
+
   end
 
   def create
@@ -43,7 +44,7 @@ class BlogPostsController < ApplicationController
     redirect_to root_path
   end
   def blog_post_params
-    params.require(:blogpost).permit(:title, :content, :published_at)
+    params.require(:blogpost).permit(:title, :content, :published_at, :cover_image)
   end
 
   def set_blog_post
