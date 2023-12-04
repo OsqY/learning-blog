@@ -5,6 +5,7 @@ class BlogPostsController < ApplicationController
 
   def index
     @blog_posts = user_signed_in? ? Blogpost.sorted : Blogpost.published.sorted
+    @pagy, @blog_posts = pagy(@blog_posts)
   end
 
   def new
@@ -51,6 +52,6 @@ class BlogPostsController < ApplicationController
   end
 
   def authenticate_user!
-    redirect_to new_user_session_path, alert: "You must be signed in" unless user_signed_in?
+    redirect_to new_ user_session_path, alert: "You must be signed in" unless user_signed_in?
     end
 end
