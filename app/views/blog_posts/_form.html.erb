@@ -1,39 +1,49 @@
-<%= form_with model: @blog_post, url: (@blog_post.persisted? ? blog_post_path(@blog_post) : blog_posts_path) do |form| %>
+<%= form_with model: @blog_post, url: (@blog_post.persisted? ? blog_post_path(@blog_post) : blog_posts_path),
+               class: "bg-white shadow-md rounded px-auto pt-6 pb-6 mb-6 " do |form| %>
   <% if form.object.errors.any? %>
-    <div>
+    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4 px-3" role="alert">
       <% form.object.errors.full_messages.each do |message| %>
-        <div>
-          <%= message %>
-        </div>
+        <span class="block sm:inline"><%= message %></span>
       <% end %>
     </div>
   <% end %>
-  <div>
-    <%= form.label :title %>
-    <%= form.text_field :title %>
+  <div class="mt-6 mb-4 py-2 px-3">
+    <%= form.label :title, class: "block text-gray-700 text-sm font-bold " %>
+    <%= form.text_field :title, class: "shadow appearance-none border rounded w-full px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mt-6 mb-4" %>
   </div>
 
-  <div>
-    <%= form.label :cover_image %>
-    <% if blogpost.cover_image.present? %>
-      <div id="<%= dom_id(blogpost, :cover_image) %>">
-        <%= image_tag blogpost.cover_image, class: "w-1/3"%>
-        <%= link_to "Remove cover image", blog_post_cover_image_path(blogpost),
-                    data: { turbo_method: :delete, turbo_confirm: "Are you sure?"} %>
+  <div class="mt-6 mb-4 py-2 px-3">
+    <%= form.label :cover_image, class: "block text-gray-700 text-sm font-bold mb-2" %>
+    <% if @blog_post.cover_image.present? %>
+      <div id="<%= dom_id(@blog_post, :cover_image) %>" class="mb-4">
+        <%= image_tag @blog_post.cover_image, class: "w-1/3 mb-2"%>
+        <%= link_to "Remove cover image", blog_post_cover_image_path(@blog_post),
+                    data: { turbo_method: :delete, turbo_confirm: "Are you sure?"}, class: "text-blue-500 hover:text-blue-800" %>
       </div>
     <% end %>
-    <%= form.file_field :cover_image %>
+    <%= form.file_field :cover_image, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mt-6 mb-4" %>
   </div>
 
-  <div>
-    <%= form.label :content %>
-    <%= form.rich_text_area :content %>
+  <div class="mt-6 mb-4 py-2 px-3">
+    <%= form.label :content, class: "block text-gray-700 text-sm font-bold mb-2 mt-6" %>
+    <%= form.rich_text_area :content, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mt-6 mb-4" %>
   </div>
 
-  <div>
-    <%= form.label :published_at %>
-    <%= form.datetime_select :published_at, include_blank: true %>
+  <div class="mt-6 mb-4 py-2 px-3">
+    <%= form.label :published_at, class: "block text-gray-700 text-sm font-bold mb-2 mt-6" %>
+    <%= form.datetime_select :published_at, include_blank: true, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline  mb-4" %>
   </div>
 
-  <%= form.button %>
+  <div class="flex inline mb-4 py-2 px-3">
+    <%= form.collection_check_boxes :category_ids, Category.all, :id, :name do |b| %>
+      <div class="mb-2">
+        <%= b.check_box  %>
+        <%= b.label class: "mr-4" %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="flex mb-4 py-2 px-3">
+  <%= form.submit class: " bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mb-6" %>
+    </div>
 <% end %>

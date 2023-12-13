@@ -16,7 +16,6 @@ class BlogPostsController < ApplicationController
   end
 
   def show
-
   end
 
   def create
@@ -44,7 +43,7 @@ class BlogPostsController < ApplicationController
     redirect_to root_path
   end
   def blog_post_params
-    params.require(:blogpost).permit(:title, :content, :published_at, :cover_image)
+    params.require(:blogpost).permit(:title, :content, :published_at, :cover_image, category_ids: [])
   end
 
   def set_blog_post
@@ -56,6 +55,6 @@ class BlogPostsController < ApplicationController
   end
 
   def authenticate_user!
-    redirect_to new_ user_session_path, alert: "You must be signed in" unless user_signed_in?
+    redirect_to new_user_session_path, alert: "You must be signed in" unless user_signed_in?
     end
 end

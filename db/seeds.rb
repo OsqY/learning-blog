@@ -13,6 +13,11 @@ user.update(
   password: "password",
   password_confirmation: "password"
 )
+categories = ['News', 'General', 'Software']
+
+categories.each do |category|
+  Category.create(name: category)
+end
 
 #100.times  do | i|
 #   Blogpost.create title: "Blogpost #{i}", content: "Hello world, published_at: Time.current"

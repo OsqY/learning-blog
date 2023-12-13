@@ -1,6 +1,27 @@
-<%= link_to "Edit", edit_blog_post_path(@blog_post) if user_signed_in? %>
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 border rounded shadow mt-6 mb-4">
+  <%= link_to "Edit", edit_blog_post_path(@blog_post), class: "no-underline text-indigo-600 mt-6" if user_signed_in? %>
 
-<%= image_tag @blog_post.cover_image if @blog_post.cover_image.present? %>
+  <%= image_tag @blog_post.cover_image if @blog_post.cover_image.present? %>
 
-<h1><%= @blog_post.title %></h1>
-<%= @blog_post.content %>
+  <h1 class="mt-4"><%= @blog_post.title %></h1>
+  <div class="mt-4">
+    <%= @blog_post.content %>
+  </div>
+  <div class="flex space-x-2 mt-6 p-4 ">
+    <% @blog_post.categories.each do |category| %>
+      <% if category.name == 'General' %>
+        <div class="p-2 rounded bg-gray-100 text-gray- ml-2">
+          <%= category.name %>
+        </div>
+      <% elsif category.name == 'Software' %>
+        <div class="p-2 rounded bg-blue-100 text-blue-900 ml-2">
+          <%= category.name %>
+        </div>
+      <% elsif category.name == 'News' %>
+        <div class="p-2 rounded bg-indigo-600 text-white ml-2">
+          <%= category.name %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>

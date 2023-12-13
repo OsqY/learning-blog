@@ -1,4 +1,15 @@
-<h1> Edit blog post</h1>
+<h1 class="mt-6"> Edit blog post</h1>
 
-<%= render partial: "form", locals: {blogpost: @blog_post} %>
-<%= button_to "Delete", blog_post_path(@blog_post), method: :delete, data: {turbo_confirm: "Are you sure?"} %>
+<%= form_with model: @blog_post, url: (@blog_post.persisted? ? blog_post_path(@blog_post) : blog_posts_path),
+              class: "bg-white shadow-md rounded px-auto pt-6 pb-6 mb-6 " do |form| %>
+  <% if form.object.errors.any? %>
+    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4 px-3" role="alert">
+      <% form.object.errors.full_messages.each do |message| %>
+        <span class="block sm:inline"><%= message %></span>
+      <% end %>
+    </div>
+  <% end %>
+  <%= render partial: "form", locals: {blogpost: @blog_post} %>
+
+  <%= button_to "Delete", blog_post_path(@blog_post), method: :delete, data: {turbo_confirm: "Are you sure?"}, class: " bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-6 mb-6" %>
+<% end %>
