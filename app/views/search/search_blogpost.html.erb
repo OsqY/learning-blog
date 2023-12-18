@@ -1,9 +1,7 @@
-<%= form_with url: "/search_blogpost", method: :get do |form| %>
-  <%= form.text_field :title %>
-  <%= form.submit "Search" %>
-  <% end %>
-<h1 class="mt-6">Welcome to my blog!</h1>
-<% @blog_posts.each do |blog_post| %>
+<% if @get_blogpost.empty? %>
+  <p> No bloposts with that name </p>
+  <% else %>
+<% @get_blogpost.each do |blog_post| %>
   <div class="p-4 mb-4 border rounded shadow mt-6">
     <% if blog_post.cover_image.present? %>
       <div class="w-1/2 h-1/4">
@@ -41,8 +39,4 @@
     </div>
   </div>
 <% end %>
-<% if @pagy.count > @pagy.items %>
-  <div  class="my-16">
-    <%==  pagy_nav(@pagy)%>
-  </div>
-<% end %>
+<% end  %>
